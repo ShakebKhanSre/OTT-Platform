@@ -1,0 +1,33 @@
+.Sign-Out {
+    background-color:rgb(220 38 38 );
+    height: 50px;
+    width: 130px;
+    align-self: center;
+    border-radius: 8px;
+    color: white;
+    font-weight:800;
+}
+
+.Header { 
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 30px;
+    width: 100%;
+    padding: 15px;
+    background-color: black;
+    border-width: 1px;
+    border-color: rgb(220 38 38 );
+    position:fixed;
+    margin-top: 140px;
+    z-index: 999;
+    width: 90%;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+
+.Header-Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}

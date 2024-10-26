@@ -1,18 +1,68 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { checkValidateData } from "../utils/validate";
 import Header from "./Header";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { LOGIN_BG } from "../utils/constant";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const email = useRef(null);
+  const password = useRef(null);
+  const [errorMsg, setErrorMsg] = useState(false);
+
+  const handleButtonClick = () => {
+    const message = checkValidateData(
+      email?.current?.value,
+      password?.current?.value
+    );
+    setErrorMsg(message);
+    if (message) return;
+    if (isSignInForm) {
+      signInWithEmailAndPassword(
+        auth,
+        email?.current?.value,
+        password?.current?.value
+      )
+        .then((userCredential) => {
+          console.log(userCredential);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(errorMessage);
+        });
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        email?.current?.value,
+        password?.current?.value
+      )
+        .then((userCredential) => {})
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(errorMessage);
+        });
+    }
+  };
+
   return (
-    <div>
-      {/* <Header /> */}
+    <div className="relative">
+      <img src={LOGIN_BG} alt="logo" className="w-full h-full opacity-85" />
 
-      <img
-        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/58ec2cfc-98b3-43c0-b864-a48b1d8f42fd/d64ey9z-7875e270-0dc7-4e55-8c04-2dbf22557272.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzU4ZWMyY2ZjLTk4YjMtNDNjMC1iODY0LWE0OGIxZDhmNDJmZFwvZDY0ZXk5ei03ODc1ZTI3MC0wZGM3LTRlNTUtOGMwNC0yZGJmMjI1NTcyNzIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.6fzwXFW8b3cr4JsI_fDBGdZwWb-YtbpnB-TZid-Yc5Y"
-        alt="logo"
-      />
-
-      <form className="absolute w-[30%]  px-10 bg-black bg-opacity-70 top-1/2 left-1/2 h-[60%] transform -translate-x-1/2 -translate-y-1/2 text-white ">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        className="absolute w-[30%]  px-10 bg-black bg-opacity-70 top-1/2 left-1/2 h-[60%] transform -translate-x-1/2 -translate-y-1/2 text-white "
+      >
         <h1 className="font-bold text-3xl p-10 text-center">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
@@ -20,22 +70,28 @@ const Login = () => {
           type="text"
           placeholder="Email Address"
           className="p-4 w-full mt- 5 bg-gray-600 rounded-lg"
+          ref={email}
         />
-        {!isSignInForm && (
+        {/* {!isSignInForm && (
           <input
             type="text"
             placeholder="Full Name"
             className="p-4 w-full mt-10 bg-gray-600 rounded-lg"
           />
-        )}
+        )} */}
 
         <input
           type="password"
           placeholder="Password"
           className="p-4 w-full mt-10  bg-gray-600 rounded-lg"
+          ref={password}
         />
+        <p className="text-red-600 mt-5 font-bold text-1.5xl">{errorMsg}</p>
 
-        <button className="p-4  bg-red-700 w-full mt-10 rounded-lg text-2xl">
+        <button
+          className="p-4  bg-red-700 w-full mt-10 rounded-lg text-2xl"
+          onClick={handleButtonClick}
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <p
