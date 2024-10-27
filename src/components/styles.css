@@ -19,7 +19,7 @@
     border-color: rgb(220 38 38 );
     position:fixed;
     margin-top: 140px;
-    z-index: 999;
+    z-index: 1;
     width: 90%;
     border-radius: 10px;
     opacity: 0.7;
@@ -30,4 +30,15 @@
     align-items: center;
     justify-content: center;
     background-color: white;
+}
+
+
+.Movie-List {
+  background-color: black;
+}
+
+.Nested-Movie-list {
+    position: relative;
+    margin-top: -300px;
+    padding-left: 50px;
 }
