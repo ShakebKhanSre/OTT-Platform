@@ -14,7 +14,7 @@ const MainContainer = () => {
         title={firstMovie?.original_title}
         overview={firstMovie?.overview}
       />
-      <VideoBackground movieId={firstMovie?.movieId} />
+      <VideoBackground />
     </div>
   );
 };

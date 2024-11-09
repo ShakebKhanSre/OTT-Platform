@@ -6,6 +6,14 @@
     border-radius: 8px;
     color: white;
     font-weight:800;
+
+    /* @media (max-width:600px) {
+        font-size:10px
+    }
+
+    @media (min-width:600px) and (max-width:1200px) {
+        background-color:aqua
+    } */
 }
 
 .Header { 
@@ -22,7 +30,12 @@
     z-index: 1;
     width: 90%;
     border-radius: 10px;
-    opacity: 0.7;
+    opacity: 0.8;
+
+    @media (min-width: 600px)  and (max-width:800px) {
+        background-color:red
+      }
+
 }
 
 .Header-Container {
@@ -41,4 +54,88 @@
     position: relative;
     margin-top: -300px;
     padding-left: 50px;
+}
+
+.Loader {
+    border: 5px solid #f3f3f3; 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+
+
+
+.Loader-View { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw;
+    background-color: white;
+}
+
+.Poster {
+    height: 70vh;
+    width: 30vw;   
+    border-radius: 20px;
+
+    @media (max-width: 600px)  {
+       width:100vw
+    }
+}
+
+.Detail {
+    padding: 50px;
+    display: flex;
+
+
+    @media (max-width: 600px)  {
+      display:block
+
+  }
+}
+
+
+.overview { 
+    font-weight: bold;
+    /* color: white; */
+    margin-top: 30px;
+}
+.Description {
+    background-color: aqua;
+    width: 70%; 
+    margin-left: 30px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px); 
+    padding: 20px;
+    border-radius: 8px;
+
+    @media (max-width: 600px)  {
+        width: 100%; 
+        margin-top:30px;
+        margin-left: 0px;
+    }
+}
+
+.Play-Button  {
+   background-color: black;
+    width: 30%;
+    padding: 15px;
+    border-radius: 20px;
+    border-width: 2px;
+    border-color: white;
+    font-weight: bold;
+    margin-top: 90px;
+    color: white;
+    font-size: 1vw;
 }
